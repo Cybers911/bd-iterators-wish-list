@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ListIterator;
 
 public class WishList {
 
@@ -9,6 +10,14 @@ public class WishList {
      * @return the wishList with the newly added item
      */
     public List<WishListItem> addLast(List<WishListItem> wishList, WishListItem item) {
+
+        ListIterator<WishListItem> iterator = wishList.listIterator();
+        //while (iterator.hasNext()) {
+        //    iterator.next();
+        // }
+        iterator.add(item);
+
+
         return wishList;
     }
 
@@ -20,6 +29,14 @@ public class WishList {
      * @return the wishList with the newly added item
      */
     public List<WishListItem> addAtIndex(List<WishListItem> wishList, WishListItem item, int index) {
+        if (index < 0 || index >= wishList.size()) {
+            addLast(wishList, item); // Add to the end if the index is out of bounds
+        } else {
+            ListIterator<WishListItem> iterator = wishList.listIterator(index);
+            iterator.add(item);
+        }
+
+
         return wishList;
     }
 
@@ -29,6 +46,13 @@ public class WishList {
      * @return the empty wishList
      */
     public List<WishListItem> removeAll(List<WishListItem> wishList) {
+
+        //wishList.clear(); // Use the clear() method to remove all items from the list
+        ListIterator<WishListItem> iterator = wishList.listIterator();
+        while (iterator.hasNext()) {
+            iterator.next();
+            iterator.remove();
+        }
         return wishList;
     }
 
@@ -39,6 +63,14 @@ public class WishList {
      * @return the wishList with the removed item
      */
     public List<WishListItem> removeItem(List<WishListItem> wishList, WishListItem item) {
+        
+        ListIterator<WishListItem> iterator = wishList.listIterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().equals(item)) {
+                iterator.remove();
+                break; // Break the loop once the item is found and removed
+            }
+        }
         return wishList;
     }
 }
